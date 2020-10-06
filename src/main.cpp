@@ -85,6 +85,7 @@ bool MyApp::OnInit()
 {
 	MyFrame* frame = new MyFrame();
 	frame->Show(true);
+	frame->SetIcon(wxICON(PROG));
 	return true;
 }
 

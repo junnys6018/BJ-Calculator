@@ -23,6 +23,7 @@ kind "WindowedApp"
 	{
 		"src/**.h",
 		"src/**.cpp",
+		"res/*.rc",
 	}
 
 	includedirs
