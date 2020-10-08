@@ -20,7 +20,7 @@ public:
 		{
 			return wxString("Disp Fee > Cost");
 		}
-		return wxString::Format("%.2f", val);
+		return wxString::Format("$%.2f", val);
 	}
 
 	float m_DisposalFee;
@@ -43,7 +43,7 @@ public:
 		{
 			return wxString("");
 		}
-		return wxString::Format("%.2f", val);
+		return wxString::Format("$%.2f", val);
 	}
 
 	float m_SystemCost;
@@ -71,7 +71,7 @@ public:
 		{
 			return wxString("");
 		}
-		return wxString::Format("%.2f", m_SellPriceexGST);
+		return wxString::Format("$%.2f", m_SellPriceexGST);
 	}
 
 	const wxString GetGPPercent()
@@ -80,7 +80,7 @@ public:
 		{
 			return wxString("");
 		}
-		return wxString::Format("%.2f", m_GrossProfitPercent);
+		return wxString::Format("%.2f%%", m_GrossProfitPercent);
 	}
 
 	const wxString GetGPDollar()
@@ -89,7 +89,7 @@ public:
 		{
 			return wxString("");
 		}
-		return wxString::Format("%.2f", m_GrossProfitDollar);
+		return wxString::Format("$%.2f", m_GrossProfitDollar);
 	}
 
 	const wxString GetGrossAfterLevy()
@@ -98,7 +98,7 @@ public:
 		{
 			return wxString("");
 		}
-		return wxString::Format("%.2f", m_GrossAfterLevy);
+		return wxString::Format("$%.2f", m_GrossAfterLevy);
 	}
 private:
 	// Outputs

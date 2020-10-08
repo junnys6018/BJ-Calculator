@@ -20,7 +20,7 @@ class MyFrame : public wxFrame
 public:
 	MyFrame();
 private:
-	LabelTextCtrl LabeledTextInput(const wxString& text, float* val, long style = 0L, float max = 99999.0f, bool validate = true);
+	LabelTextCtrl LabeledTextInput(const wxString& text, float* val, long style = 0L, float max = 99999.0f, bool validate = true, const wxColor & color = wxNullColour);
 	void OnCalculate(wxCommandEvent& event);
 
 	wxStaticBoxSizer* GenerateDiscountGUI();
@@ -40,7 +40,11 @@ private:
 	wxTextCtrl* m_GrossAfterLevy;
 
 	wxPanel* m_Panel;
+
+	static wxColor bg;
 };
+
+wxColor MyFrame::bg = wxColor(121, 224, 224);
 
 enum
 {
@@ -83,14 +87,14 @@ MyFrame::MyFrame()
 	SetMinSize(GetEffectiveMinSize());
 }
 
-LabelTextCtrl MyFrame::LabeledTextInput(const wxString& text, float* val, long style, float max, bool validate)
+LabelTextCtrl MyFrame::LabeledTextInput(const wxString& text, float* val, long style, float max, bool validate, const wxColor& color)
 {
 	wxStaticText* staticText = new wxStaticText(m_Panel, wxID_ANY, text);
 	wxFloatingPointValidator<float> validator(2, val, wxNUM_VAL_NO_TRAILING_ZEROES | wxNUM_VAL_ZERO_AS_BLANK);
 	validator.SetMin(0.0f);
 	validator.SetMax(max);
 	wxTextCtrl* ctrl = new wxTextCtrl(m_Panel, style & wxTE_READONLY ? wxID_ANY : ID_Input, wxEmptyString, wxDefaultPosition, wxDefaultSize, style | wxTE_CENTRE | wxTE_PROCESS_ENTER, validate ? validator : wxDefaultValidator);
-
+	ctrl->SetOwnBackgroundColour(color);
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 	sizer->Add(staticText, 0, wxALIGN_CENTER);
 	sizer->Add(ctrl, 0, wxEXPAND);
@@ -137,7 +141,7 @@ wxStaticBoxSizer* MyFrame::GenerateDiscountGUI()
 	line_one->Add(new wxStaticText(m_Panel, wxID_ANY, "-"), 0, wxALIGN_CENTRE);
 	line_one->Add(LabeledTextInput("Discount (%)", &m_PercentCalc.m_Discount, 0, 100.0f).sizer, 1, wxALL, 10);
 	line_one->Add(new wxStaticText(m_Panel, wxID_ANY, "="), 0, wxALIGN_CENTRE);
-	auto [sizer1, ctrl1] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer1, ctrl1] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_DiscPriceRel = ctrl1;
 	line_one->Add(sizer1, 1, wxALL, 10);
 
@@ -146,7 +150,7 @@ wxStaticBoxSizer* MyFrame::GenerateDiscountGUI()
 	line_two->Add(new wxStaticText(m_Panel, wxID_ANY, "-"), 0, wxALIGN_CENTRE);
 	line_two->Add(LabeledTextInput("Cash Back ($)", &m_CashbackCalc.m_Cashback).sizer, 1, wxALL, 10);
 	line_two->Add(new wxStaticText(m_Panel, wxID_ANY, "="), 0, wxALIGN_CENTRE);
-	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_DiscPriceAbs = ctrl2;
 	line_two->Add(sizer2, 1, wxALL, 10);
 
@@ -167,19 +171,19 @@ wxStaticBoxSizer* MyFrame::GenerateGrossProfitGUI()
 
 	wxBoxSizer* right = new wxBoxSizer(wxVERTICAL);
 
-	auto [sizer1, ctrl1] = LabeledTextInput("Sell Price [ex GST] ($)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer1, ctrl1] = LabeledTextInput("Sell Price [ex GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_SellPriceex = ctrl1;
 	right->Add(sizer1, 1, wxEXPAND | wxALL, 10);
 
-	auto [sizer2, ctrl2] = LabeledTextInput("Gross Profit (%)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer2, ctrl2] = LabeledTextInput("Gross Profit (%)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_GPPercent = ctrl2;
 	right->Add(sizer2, 1, wxEXPAND | wxALL, 10);
 
-	auto [sizer3, ctrl3] = LabeledTextInput("Gross Profit [ex GST] ($)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer3, ctrl3] = LabeledTextInput("Gross Profit [ex GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_GPDollar = ctrl3;
 	right->Add(sizer3, 1, wxEXPAND | wxALL, 10);
 
-	auto [sizer4, ctrl4] = LabeledTextInput("Gross After Levy ($)", NULL, wxTE_READONLY, 99999.0f, false);
+	auto [sizer4, ctrl4] = LabeledTextInput("Gross After Levy ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
 	m_GrossAfterLevy = ctrl4;
 	right->Add(sizer4, 1, wxEXPAND | wxALL, 10);
 
