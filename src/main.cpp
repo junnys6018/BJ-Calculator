@@ -31,8 +31,10 @@ private:
 	CashbackDiscountCalculator m_CashbackCalc;
 	ProfitCalculator m_ProfitCalc;
 
-	wxTextCtrl* m_DiscPriceRel;
-	wxTextCtrl* m_DiscPriceAbs;
+	wxTextCtrl* m_DiscPriceRelEx;
+	wxTextCtrl* m_DiscPriseRelInc;
+	wxTextCtrl* m_DiscPriceAbsEx;
+	wxTextCtrl* m_DiscPriceAbsInc;
 
 	wxTextCtrl* m_SellPriceex;
 	wxTextCtrl* m_GPPercent;
@@ -65,7 +67,7 @@ MyFrame::MyFrame()
 	: wxFrame(NULL, wxID_ANY, "BobJane Calculator"), m_PercentCalc(), m_CashbackCalc(), m_ProfitCalc()
 {
 	// Set font
-	wxFont myFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	wxFont myFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	SetFont(myFont);
 
 	wxValidator::SuppressBellOnError(true);
@@ -108,8 +110,14 @@ void MyFrame::OnCalculate(wxCommandEvent& event)
 	if (tc)
 	{
 		tc->GetValidator()->TransferFromWindow();
-		m_DiscPriceRel->SetValue(m_PercentCalc.Calculate());
-		m_DiscPriceAbs->SetValue(m_CashbackCalc.Calculate());
+
+		m_PercentCalc.Calculate();
+		m_DiscPriceRelEx->SetValue(m_PercentCalc.GetDiscEx());
+		m_DiscPriseRelInc->SetValue(m_PercentCalc.GetDiscInc());
+
+		m_CashbackCalc.Calculate();
+		m_DiscPriceAbsEx->SetValue(m_CashbackCalc.GetDiscEx());
+		m_DiscPriceAbsInc->SetValue(m_CashbackCalc.GetDiscInc());
 
 		m_ProfitCalc.Calculate();
 
@@ -141,19 +149,28 @@ wxStaticBoxSizer* MyFrame::GenerateDiscountGUI()
 	line_one->Add(new wxStaticText(m_Panel, wxID_ANY, "-"), 0, wxALIGN_CENTRE);
 	line_one->Add(LabeledTextInput("Discount (%)", &m_PercentCalc.m_Discount, 0, 100.0f).sizer, 1, wxALL, 10);
 	line_one->Add(new wxStaticText(m_Panel, wxID_ANY, "="), 0, wxALIGN_CENTRE);
-	auto [sizer1, ctrl1] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
-	m_DiscPriceRel = ctrl1;
+
+	auto [sizer1, ctrl1] = LabeledTextInput("Discounted Price [ex GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	m_DiscPriceRelEx = ctrl1;
 	line_one->Add(sizer1, 1, wxALL, 10);
+	
+	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price [inc GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	m_DiscPriseRelInc = ctrl2;
+	line_one->Add(sizer2, 1, wxALL, 10);
 
 	wxBoxSizer* line_two = new wxBoxSizer(wxHORIZONTAL);
 	line_two->Add(LabeledTextInput("System Cost ($)", &m_CashbackCalc.m_SystemCost).sizer, 1, wxALL, 10);
 	line_two->Add(new wxStaticText(m_Panel, wxID_ANY, "-"), 0, wxALIGN_CENTRE);
 	line_two->Add(LabeledTextInput("Cash Back ($)", &m_CashbackCalc.m_Cashback).sizer, 1, wxALL, 10);
 	line_two->Add(new wxStaticText(m_Panel, wxID_ANY, "="), 0, wxALIGN_CENTRE);
-	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
-	m_DiscPriceAbs = ctrl2;
-	line_two->Add(sizer2, 1, wxALL, 10);
-
+	
+	auto [sizer3, ctrl3] = LabeledTextInput(" ", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	m_DiscPriceAbsEx = ctrl3;
+	line_two->Add(sizer3, 1, wxALL, 10);
+	
+	auto [sizer4, ctrl4] = LabeledTextInput(" ", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	m_DiscPriceAbsInc = ctrl4;
+	line_two->Add(sizer4, 1, wxALL, 10);
 
 	wxStaticBoxSizer* discountSizer = new wxStaticBoxSizer(wxVERTICAL, m_Panel, "Discount");
 	discountSizer->Add(line_zero, 0, wxEXPAND | wxALIGN_CENTER | wxALL, 10);

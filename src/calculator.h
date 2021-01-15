@@ -9,23 +9,37 @@ public:
 	{
 
 	}
-	const wxString Calculate()
+	const void Calculate()
 	{
-		float val = (m_SystemCost - m_DisposalFee) * (100.0f - m_Discount) / 100 + m_DisposalFee;
+		m_DiscExGST = (m_SystemCost - m_DisposalFee) * (100.0f - m_Discount) / 100 + m_DisposalFee;
+		m_DiscIncGST = m_DiscExGST * 1.1f;
+	}
+
+	const wxString GetDiscEx()
+	{
 		if (m_DisposalFee == 0.0f || m_SystemCost == 0.0f || m_Discount == 0.0f)
 		{
 			return wxString("");
 		}
-		else if (m_DisposalFee > m_SystemCost)
+		return wxString::Format("$%.2f", m_DiscExGST);
+	}
+
+	const wxString GetDiscInc()
+	{
+		if (m_DisposalFee == 0.0f || m_SystemCost == 0.0f || m_Discount == 0.0f)
 		{
-			return wxString("Disp Fee > Cost");
+			return wxString("");
 		}
-		return wxString::Format("$%.2f", val);
+		return wxString::Format("$%.2f", m_DiscIncGST);
 	}
 
 	float m_DisposalFee;
 	float m_SystemCost;
 	float m_Discount;
+
+private:
+	float m_DiscExGST;
+	float m_DiscIncGST;
 };
 
 class CashbackDiscountCalculator
@@ -36,18 +50,37 @@ public:
 	{
 
 	}
-	const wxString Calculate()
+
+	const void Calculate()
 	{
-		float val = m_SystemCost - m_Cashback / 1.1f;
+		m_DiscEx = m_SystemCost - m_Cashback / 1.1f;
+		m_DiscInc = m_DiscEx * 1.1f;
+	}
+
+	const wxString GetDiscEx()
+	{
 		if (m_SystemCost == 0.0f || m_Cashback == 0.0f)
 		{
 			return wxString("");
 		}
-		return wxString::Format("$%.2f", val);
+		return wxString::Format("$%.2f", m_DiscEx);
+	}
+
+	const wxString GetDiscInc()
+	{
+		if (m_SystemCost == 0.0f || m_Cashback == 0.0f)
+		{
+			return wxString("");
+		}
+		return wxString::Format("$%.2f", m_DiscInc);
 	}
 
 	float m_SystemCost;
 	float m_Cashback;
+
+private:
+	float m_DiscEx;
+	float m_DiscInc;
 };
 
 class ProfitCalculator
