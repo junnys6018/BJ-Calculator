@@ -5,7 +5,7 @@ class PercentageDiscountCalculator
 {
 public:
 	PercentageDiscountCalculator()
-		:m_DisposalFee(3.18f), m_SystemCost(0), m_Discount(0)
+		:m_DisposalFee(3.5f), m_SystemCost(0), m_Discount(0)
 	{
 
 	}

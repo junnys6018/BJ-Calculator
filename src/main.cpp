@@ -44,9 +44,11 @@ private:
 	wxPanel* m_Panel;
 
 	static wxColor bg;
+	static wxColor red;
 };
 
 wxColor MyFrame::bg = wxColor(121, 224, 224);
+wxColor MyFrame::red = wxColor(255, 0, 0);
 
 enum
 {
@@ -154,7 +156,7 @@ wxStaticBoxSizer* MyFrame::GenerateDiscountGUI()
 	m_DiscPriceRelEx = ctrl1;
 	line_one->Add(sizer1, 1, wxALL, 10);
 	
-	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price [inc GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	auto [sizer2, ctrl2] = LabeledTextInput("Discounted Price [inc GST] ($)", NULL, wxTE_READONLY, 99999.0f, false, red);
 	m_DiscPriseRelInc = ctrl2;
 	line_one->Add(sizer2, 1, wxALL, 10);
 
@@ -168,7 +170,7 @@ wxStaticBoxSizer* MyFrame::GenerateDiscountGUI()
 	m_DiscPriceAbsEx = ctrl3;
 	line_two->Add(sizer3, 1, wxALL, 10);
 	
-	auto [sizer4, ctrl4] = LabeledTextInput(" ", NULL, wxTE_READONLY, 99999.0f, false, bg);
+	auto [sizer4, ctrl4] = LabeledTextInput(" ", NULL, wxTE_READONLY, 99999.0f, false, red);
 	m_DiscPriceAbsInc = ctrl4;
 	line_two->Add(sizer4, 1, wxALL, 10);
 
