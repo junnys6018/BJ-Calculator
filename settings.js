@@ -26,7 +26,7 @@ module.exports = {
 	},
 	writeSettings: (settings) => {
 		const settingsPath = path.resolve(__dirname, 'settings.json');
-		fs.writeFileSync(settingsPath, JSON.stringify(settings));
+		fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
 	}
 }
 

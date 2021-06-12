@@ -1,7 +1,7 @@
 const { app, Menu, ipcMain, BrowserWindow } = require('electron');
 const path = require('path')
 
-function createWindow () {
+function createWindow() {
 	const win = new BrowserWindow({
 		width: 800,
 		height: 600,
@@ -13,7 +13,7 @@ function createWindow () {
 		label: 'Settings',
 		submenu: [{
 			label: 'Set Disposal Fee',
-			click: function (item, focusedWindow) {
+			click: (item, focusedWindow) => {
 				if (focusedWindow) {
 					const dialog = new BrowserWindow({
 						width: 400,
@@ -21,6 +21,7 @@ function createWindow () {
 						show: false,
 						parent: win,
 						modal: true,
+						resizable: false,
 						icon: 'assets/bobjane.ico',
 						webPreferences: {
 							preload: path.join(__dirname, 'preload/disposal_fee_dialog.js')
@@ -31,10 +32,29 @@ function createWindow () {
 					dialog.once('ready-to-show', _ => dialog.show());
 					ipcMain.once('close-dialog', _ => dialog.close());
 					dialog.on('closed', _ => ipcMain.removeAllListeners('close-dialog'));
-					dialog.webContents.openDevTools()
 				}
 			}
 		}]
+	},
+	{
+		label: 'About',
+		click: (item, focusedWindow) => {
+			if (focusedWindow) {
+				const about = new BrowserWindow({
+					width: 400,
+					height: 200,
+					show: false,
+					parent: win,
+					modal: true,
+					resizable: false,
+					icon: 'assets/bobjane.ico',
+				})
+				about.loadFile('about.html');
+				about.removeMenu();
+				about.once('ready-to-show', _ => about.show());
+				about.webContents.openDevTools();
+			}
+		}
 	}]
 
 	win.loadFile('index.html');
