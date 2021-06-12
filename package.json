@@ -1,0 +1,23 @@
+{
+  "name": "bj-calculator",
+  "version": "1.0.0",
+  "description": "Calculator App for BobJane",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junnys6018/BJ-Calculator.git"
+  },
+  "author": "Jun Lim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/junnys6018/BJ-Calculator/issues"
+  },
+  "homepage": "https://github.com/junnys6018/BJ-Calculator#readme",
+  "devDependencies": {
+    "electron": "^13.1.2"
+  }
+}
