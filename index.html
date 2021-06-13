@@ -73,19 +73,19 @@
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 1fr 1fr 1fr;
 			grid-template-areas:
-				"cost-price sell-price-inc"
-				"sell-price-ex gross-profit-p"
-				"gross-profit-ex gross-levy";
+				'cost-price sell-price-inc'
+				'sell-price-ex gross-profit-p'
+				'gross-profit-ex gross-levy';
 			column-gap: 5em;
 			row-gap: 0.75em;
 		}
 
 		.bj-inc-gst-output {
-			background-color: rgb(245, 137, 137)!important;
+			background-color: rgb(245, 137, 137) !important;
 		}
 
 		.bj-ex-gst-output {
-			background-color: rgb(138, 236, 253)!important;
+			background-color: rgb(138, 236, 253) !important;
 		}
 
 		input::-webkit-outer-spin-button,
@@ -106,7 +106,7 @@
 			</div>
 			<div class='d-flex mb-3 justify-content-center bj-discount'>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>System Cost</label>
+					<label for='i-system-cost-1' class='form-label'>System Cost</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control' id='i-system-cost-1' min='0.00' max='10000.00'
@@ -115,7 +115,7 @@
 				</div>
 				<img src='assets/minus-sign.svg' alt='minus' class='bj-icon'>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>Discount</label>
+					<label for='i-discount' class='form-label'>Discount</label>
 					<div class='input-group'>
 						<span class='input-group-text'>%</span>
 						<input type='number' class='form-control' id='i-discount' min='0.00' max='10000.00'
@@ -124,14 +124,14 @@
 				</div>
 				<img src='assets/equal-sign.svg' alt='equals' class='bj-icon'>
 				<div class='bj-form-item' style='margin-right: 1em;'>
-					<label for='p-system-cost' class='form-label'>Discounted Price [ex GST]</label>
+					<label for='o-discount-ex-1' class='form-label'>Discounted Price [ex GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control bj-ex-gst-output' id='o-discount-ex-1' readonly />
 					</div>
 				</div>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>Discounted Price [inc GST]</label>
+					<label for='o-discount-inc-1' class='form-label'>Discounted Price [inc GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control bj-inc-gst-output' id='o-discount-inc-1' readonly />
@@ -140,7 +140,7 @@
 			</div>
 			<div class='d-flex justify-content-center bj-discount'>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>System Cost</label>
+					<label for='i-system-cost-2' class='form-label'>System Cost</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control' id='i-system-cost-2' min='0.00' max='10000.00'
@@ -149,7 +149,7 @@
 				</div>
 				<img src='assets/minus-sign.svg' alt='minus' class='bj-icon'>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>Cash Back</label>
+					<label for='i-cash-back' class='form-label'>Cash Back</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control' id='i-cash-back' min='0.00' max='10000.00'
@@ -158,14 +158,14 @@
 				</div>
 				<img src='assets/equal-sign.svg' alt='equals' class='bj-icon'>
 				<div class='bj-form-item' style='margin-right: 1em;'>
-					<label for='p-system-cost' class='form-label'>Discounted Price [ex GST]</label>
+					<label for='o-discount-ex-2' class='form-label'>Discounted Price [ex GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control bj-ex-gst-output' id='o-discount-ex-2' readonly />
 					</div>
 				</div>
 				<div class='bj-form-item'>
-					<label for='p-system-cost' class='form-label'>Discounted Price [inc GST]</label>
+					<label for='o-discount-inc-2' class='form-label'>Discounted Price [inc GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
 						<input type='number' class='form-control bj-inc-gst-output' id='o-discount-inc-2' readonly />
@@ -177,47 +177,47 @@
 			<h5>Gross Profit</h5>
 			<div class='bj-gross-profit'>
 				<div class='bj-form-item' style='grid-area: cost-price; justify-self: end'>
-					<label for='p-system-cost' class='form-label'>Cost Price [ex GST]</label>
+					<label for='i-cost-price' class='form-label'>Cost Price [ex GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
-						<input type='number' class='form-control' id='p-system-cost' min='0.00' max='10000.00'
+						<input type='number' class='form-control' id='i-cost-price' min='0.00' max='10000.00'
 							step='0.05' />
 					</div>
 				</div>
 				<div class='bj-form-item' style='grid-area: sell-price-inc; justify-self: start'>
-					<label for='p-system-cost' class='form-label'>Sell Price [inc GST]</label>
+					<label for='i-sell-price-inc' class='form-label'>Sell Price [inc GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
-						<input type='number' class='form-control' id='p-system-cost' min='0.00' max='10000.00'
+						<input type='number' class='form-control' id='i-sell-price-inc' min='0.00' max='10000.00'
 							step='0.05' />
 					</div>
 				</div>
 				<div class='bj-form-item' style='grid-area: sell-price-ex; justify-self: end'>
-					<label for='p-system-cost' class='form-label'>Sell Price [ex GST]</label>
+					<label for='o-sell-price-ex' class='form-label'>Sell Price [ex GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
-						<input type='number' class='form-control bj-ex-gst-output' id='p-system-cost' readonly />
+						<input type='number' class='form-control bj-ex-gst-output' id='o-sell-price-ex' readonly />
 					</div>
 				</div>
 				<div class='bj-form-item' style='grid-area: gross-profit-p; justify-self: start'>
-					<label for='p-system-cost' class='form-label'>Gross Profit</label>
+					<label for='o-gross-profit-p' class='form-label'>Gross Profit</label>
 					<div class='input-group'>
 						<span class='input-group-text'>%</span>
-						<input type='number' class='form-control' id='p-system-cost' readonly />
+						<input type='number' class='form-control' id='o-gross-profit-p' readonly />
 					</div>
 				</div>
 				<div class='bj-form-item' style='grid-area: gross-profit-ex; justify-self: end'>
-					<label for='p-system-cost' class='form-label'>Gross Profit [ex GST]</label>
+					<label for='o-gross-profit-ex' class='form-label'>Gross Profit [ex GST]</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
-						<input type='number' class='form-control bj-ex-gst-output' id='p-system-cost' readonly />
+						<input type='number' class='form-control bj-ex-gst-output' id='o-gross-profit-ex' readonly />
 					</div>
 				</div>
 				<div class='bj-form-item' style='grid-area: gross-levy; justify-self: start'>
-					<label for='p-system-cost' class='form-label'>Gross After Levy</label>
+					<label for='o-gross-levy' class='form-label'>Gross After Levy</label>
 					<div class='input-group'>
 						<span class='input-group-text'>$</span>
-						<input type='number' class='form-control' id='p-system-cost' readonly />
+						<input type='number' class='form-control' id='o-gross-levy' readonly />
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,7 @@
 			position: relative;
 		}
 
-		.bj-tooltip-group > .bj-tooltip-item ~ .bj-tooltip-popup {
+		.bj-tooltip-group>.bj-tooltip-item~.bj-tooltip-popup {
 			visibility: hidden;
 			width: 120px;
 			background-color: #555;
@@ -26,12 +26,13 @@
 			font-size: 12px;
 
 			position: absolute;
-			top: -50%;
-			left: 105%;
-			z-index: 1;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -60px;
+			z-index: 100;
 		}
 
-		.bj-tooltip-group > .bj-tooltip-item:hover ~ .bj-tooltip-popup {
+		.bj-tooltip-group>.bj-tooltip-item:hover~.bj-tooltip-popup {
 			visibility: visible;
 		}
 	</style>
@@ -43,7 +44,7 @@
 			<label for='disposal-fee' class='form-label'>Enter New Disposal Fee:</label>
 			<span class='bj-tooltip-group' id='error-popup' style='visibility: hidden'>
 				<img src='assets/exclamation-circle-fill.svg' class='bj-tooltip-item'>
-				<span class='bj-tooltip-popup'>Disposal fee cant be negative</span>
+				<span class='bj-tooltip-popup' id='error-popup-message'></span>
 			</span>
 			<div class='input-group'>
 				<span class='input-group-text'>$</span>
