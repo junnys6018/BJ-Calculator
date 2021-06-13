@@ -3,10 +3,13 @@ const path = require('path')
 
 function createWindow() {
 	const win = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 820,
+		height: 630,
 		show: false,
-		icon: 'assets/bobjane.ico'
+		icon: 'assets/bobjane.ico',
+		webPreferences: {
+			preload: path.join(__dirname, 'preload/index.js')
+		}
 	});
 
 	let template = [{
@@ -52,7 +55,6 @@ function createWindow() {
 				about.loadFile('about.html');
 				about.removeMenu();
 				about.once('ready-to-show', _ => about.show());
-				about.webContents.openDevTools();
 			}
 		}
 	}]

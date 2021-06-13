@@ -2,20 +2,226 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset='UTF-8'>
 
-	<link href="assets/bootstrap-5.0.1-dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="assets/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
+	<link href='assets/bootstrap-5.0.1-dist/css/bootstrap.min.css' rel='stylesheet'>
+	<script src='assets/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js'></script>
 
-	<link href="assets/style.css" rel="stylesheet">
+	<link href='assets/style.css' rel='stylesheet'>
 
 	<title>Bob Jane Calculator - By Jun Lim</title>
+
+	<style>
+		body {
+			background-color: #eee
+		}
+
+		.bj-pane {
+			background-color: white;
+			padding: 0.5em;
+			margin: 1em;
+			border: 1px solid #ccc;
+			border-radius: 14px;
+			overflow: hidden;
+			min-width: fit-content;
+		}
+
+		.bj-info {
+			color: white;
+			background-color: #38b929;
+			border-radius: 4px;
+			padding: 0 0.5em 0 0;
+		}
+
+		.bj-info .bj-badge {
+			display: inline-block;
+			color: white;
+			background-color: #555;
+			border-radius: 4px 0 0 4px;
+			padding: 0.2em 0.5em;
+			margin-right: 0.5em;
+		}
+
+		.bj-form-item {
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bj-form-item label {
+			white-space: nowrap;
+		}
+
+		.bj-discount .bj-form-item .input-group {
+			width: 9em;
+			margin: auto auto 0 auto;
+		}
+
+		.bj-gross-profit .bj-form-item .input-group {
+			width: 12em;
+			margin: auto auto 0 auto;
+		}
+
+		.bj-icon {
+			width: 1.3em;
+			height: 1.3em;
+			margin: auto 0.5em;
+		}
+
+		.bj-gross-profit {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr 1fr;
+			grid-template-areas:
+				"cost-price sell-price-inc"
+				"sell-price-ex gross-profit-p"
+				"gross-profit-ex gross-levy";
+			column-gap: 5em;
+			row-gap: 0.75em;
+		}
+
+		.bj-inc-gst-output {
+			background-color: rgb(245, 137, 137)!important;
+		}
+
+		.bj-ex-gst-output {
+			background-color: rgb(138, 236, 253)!important;
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="container">
-		<h1>Hello World!</h1>
-		This is an electron app!
+	<div class='d-flex flex-column'>
+		<div class='bj-pane' style='margin-bottom: 0.5em'>
+			<div class='mb-4'>
+				<h5 style='display:inline'> Discount</h5>
+				<div class='float-end bj-info'><span class='bj-badge'>Disposal Fee</span><span
+						id='disposal-fee-badge'></span></div>
+			</div>
+			<div class='d-flex mb-3 justify-content-center bj-discount'>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>System Cost</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='i-system-cost-1' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<img src='assets/minus-sign.svg' alt='minus' class='bj-icon'>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>Discount</label>
+					<div class='input-group'>
+						<span class='input-group-text'>%</span>
+						<input type='number' class='form-control' id='i-discount' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<img src='assets/equal-sign.svg' alt='equals' class='bj-icon'>
+				<div class='bj-form-item' style='margin-right: 1em;'>
+					<label for='p-system-cost' class='form-label'>Discounted Price [ex GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-ex-gst-output' id='o-discount-ex-1' readonly />
+					</div>
+				</div>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>Discounted Price [inc GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-inc-gst-output' id='o-discount-inc-1' readonly />
+					</div>
+				</div>
+			</div>
+			<div class='d-flex justify-content-center bj-discount'>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>System Cost</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='i-system-cost-2' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<img src='assets/minus-sign.svg' alt='minus' class='bj-icon'>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>Cash Back</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='i-cash-back' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<img src='assets/equal-sign.svg' alt='equals' class='bj-icon'>
+				<div class='bj-form-item' style='margin-right: 1em;'>
+					<label for='p-system-cost' class='form-label'>Discounted Price [ex GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-ex-gst-output' id='o-discount-ex-2' readonly />
+					</div>
+				</div>
+				<div class='bj-form-item'>
+					<label for='p-system-cost' class='form-label'>Discounted Price [inc GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-inc-gst-output' id='o-discount-inc-2' readonly />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='bj-pane' style='margin-top: 0.5em'>
+			<h5>Gross Profit</h5>
+			<div class='bj-gross-profit'>
+				<div class='bj-form-item' style='grid-area: cost-price; justify-self: end'>
+					<label for='p-system-cost' class='form-label'>Cost Price [ex GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='p-system-cost' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<div class='bj-form-item' style='grid-area: sell-price-inc; justify-self: start'>
+					<label for='p-system-cost' class='form-label'>Sell Price [inc GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='p-system-cost' min='0.00' max='10000.00'
+							step='0.05' />
+					</div>
+				</div>
+				<div class='bj-form-item' style='grid-area: sell-price-ex; justify-self: end'>
+					<label for='p-system-cost' class='form-label'>Sell Price [ex GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-ex-gst-output' id='p-system-cost' readonly />
+					</div>
+				</div>
+				<div class='bj-form-item' style='grid-area: gross-profit-p; justify-self: start'>
+					<label for='p-system-cost' class='form-label'>Gross Profit</label>
+					<div class='input-group'>
+						<span class='input-group-text'>%</span>
+						<input type='number' class='form-control' id='p-system-cost' readonly />
+					</div>
+				</div>
+				<div class='bj-form-item' style='grid-area: gross-profit-ex; justify-self: end'>
+					<label for='p-system-cost' class='form-label'>Gross Profit [ex GST]</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control bj-ex-gst-output' id='p-system-cost' readonly />
+					</div>
+				</div>
+				<div class='bj-form-item' style='grid-area: gross-levy; justify-self: start'>
+					<label for='p-system-cost' class='form-label'>Gross After Levy</label>
+					<div class='input-group'>
+						<span class='input-group-text'>$</span>
+						<input type='number' class='form-control' id='p-system-cost' readonly />
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 
