@@ -63,6 +63,8 @@ function createWindow() {
 	const menu = Menu.buildFromTemplate(template);
 	win.setMenu(menu);
 
+	ipcMain.on('update-disposal-fee', _ => win.webContents.send('update-disposal-fee'));
+
 	win.once('ready-to-show', _ => win.show());
 	win.webContents.openDevTools()
 }

@@ -1,4 +1,3 @@
-
 const ipcRenderer = require('electron').ipcRenderer;
 const { getSettings, writeSettings } = require('../settings.js');
 
@@ -12,15 +11,18 @@ window.addEventListener('DOMContentLoaded', _ => {
 
 	document.getElementById('save').addEventListener('click', _ => {
 		settings.disposalFee = Number(Number(disposalFeeInput.value).toFixed(2));
-		writeSettings(settings);
-		ipcRenderer.send('close-dialog')
+		if (settings.disposalFee >= 0) {
+			writeSettings(settings);
+			ipcRenderer.send('close-dialog');
+			ipcRenderer.send('update-disposal-fee');
+		}
+		else {
+			document.getElementById('error-popup').style.visibility = 'visible';
+		}
 	});
 
 	document.getElementById('disposal-fee').addEventListener('blur', _ => {
 		let fee = Number(disposalFeeInput.value);
-		if (fee < 0) {
-			fee = 0;
-		}
 		disposalFeeInput.value = fee.toFixed(2);
 	})
 });

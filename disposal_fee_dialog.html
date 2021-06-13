@@ -10,18 +10,47 @@
 	<link href='assets/style.css' rel='stylesheet'>
 
 	<title>Set Disposal Fee</title>
+	<style>
+		.bj-tooltip-group {
+			position: relative;
+		}
+
+		.bj-tooltip-group > .bj-tooltip-item ~ .bj-tooltip-popup {
+			visibility: hidden;
+			width: 120px;
+			background-color: #555;
+			color: #fff;
+			text-align: center;
+			padding: 5px 0;
+			border-radius: 6px;
+			font-size: 12px;
+
+			position: absolute;
+			top: -50%;
+			left: 105%;
+			z-index: 1;
+		}
+
+		.bj-tooltip-group > .bj-tooltip-item:hover ~ .bj-tooltip-popup {
+			visibility: visible;
+		}
+	</style>
 </head>
 
 <body>
 	<div class='d-flex flex-column vh-100'>
 		<div class='my-auto mx-3'>
 			<label for='disposal-fee' class='form-label'>Enter New Disposal Fee:</label>
+			<span class='bj-tooltip-group' id='error-popup' style='visibility: hidden'>
+				<img src='assets/exclamation-circle-fill.svg' class='bj-tooltip-item'>
+				<span class='bj-tooltip-popup'>Disposal fee cant be negative</span>
+			</span>
 			<div class='input-group'>
 				<span class='input-group-text'>$</span>
 				<input type='number' class='form-control' id='disposal-fee' min='0.00' max='10000.00' step='0.05' />
 			</div>
 		</div>
-		
+
 		<div style='background-color: #eee'>
 			<button type='button' id='cancel' class='btn btn-danger btn-sm m-1 float-end'>Cancel</button>
 			<button type='button' id='save' class='btn btn-success btn-sm m-1 float-end'>Save</button>
