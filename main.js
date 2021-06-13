@@ -66,7 +66,6 @@ function createWindow() {
 	ipcMain.on('update-disposal-fee', _ => win.webContents.send('update-disposal-fee'));
 
 	win.once('ready-to-show', _ => win.show());
-	win.webContents.openDevTools()
 }
 
 app.on('window-all-closed', _ => app.quit());
